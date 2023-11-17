@@ -5,15 +5,22 @@ export const HttpClient = {
     const option = {
       method: type,
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
+        // Athorization: `Bearer ${Endpoints.API_KEY}`,
       },
     };
+    if (type === "PUT") {
+      option.headers["Content-Type"] = "application/json";
+    }
     if (data) {
       option.body = data;
     }
     fetch(Endpoints.BASE_URL + url, option)
       .then((response) => {
         if (response.ok) {
+          if (response.status === 204) {
+            return success(response);
+          }
           return response.json();
         }
       })

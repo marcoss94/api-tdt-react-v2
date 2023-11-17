@@ -3,4 +3,5 @@ export const Endpoints = {
   GET_ORGANIZATION: "/organizations-public?sort[0]=-createdAt",
   POST_ORGANIZATION: "/organizations-public",
   DEL_PUT_ORGANIZATION: "/organizations-public/:id",
+  // API_KEY: "asdkjanl skj baskldbalshdbaksld hlakschnahcb yaf",
 };

@@ -1,49 +1,21 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import Form from "./components/Form/Form";
-import List from "./components/List/List";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import { HttpClient } from "./services/HttpClient";
-import { Endpoints } from "./config/Endpoints";
-import Spinner from "./components/Spinner/Spinner";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import Contact from "./pages/Contact/Contact";
+import Detail from "./pages/Detail/Detail";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [spinner, setSpinner] = useState(false);
-
-  const getOrganization = () => {
-    setSpinner(true);
-    HttpClient.customFetch(
-      "GET",
-      Endpoints.GET_ORGANIZATION,
-      null,
-      handleSuccess,
-      handleError,
-      handleAlways
-    );
-  };
-
-  const handleSuccess = (response) => {
-    setData(response.data.slice(0, 10));
-  };
-
-  const handleError = (error) => {
-    console.log(error);
-  };
-  const handleAlways = () => {
-    setSpinner(false);
-  };
-
-  useEffect(() => {
-    getOrganization();
-  }, []);
-
   return (
     <main>
       <Navbar />
-      <Form />
-      <Spinner spinner={spinner} />
-      <List data={data} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/detail/:orgId" element={<Detail />} />
+      </Routes>
     </main>
   );
 }
